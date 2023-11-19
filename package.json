@@ -1,5 +1,30 @@
 {
+  "name": "openai_hat",
+  "version": "1.0.0",
+  "description": "openai based bot",
+  "main": "server.js",
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/server.js", 
+    "build": "cd client && npm run build",
+    "server": "cd server && npm run server",
+    "client": "cd client && npm run build"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shuwenf/OpenAIChatBot.git"
+  },
+  "author": "shuwenf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shuwenf/OpenAIChatBot/issues"
+  },
+  "homepage": "https://github.com/Shuwenf/OpenAIChatBot#readme",
   "dependencies": {
-    "package.json": "^2.0.1"
+    "yarn": "^1.22.21"
   }
 }
