@@ -38,13 +38,13 @@ app.post("/api", async (req, res) => {
     const prompt = req.body.prompt;
 
     const response = await openai.completions.create({
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       prompt: `${prompt}`,
       max_tokens: 300,
     });
 
     res.status(200).send({
-      bot: response.data.choices[0].text,
+      bot: response.choices[0].text,
     });
   } catch (error) {
     console.log(error);
