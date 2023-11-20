@@ -2,11 +2,13 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import { Configuration, OpenAIApi } from "openai";
-import path from "path";
+import { fileURLToPath } from "url";
+
+import { dirname, join } from "path";
 
 dotenv.config();
 
-const port = 5000;
+const port = 5003;
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -18,9 +20,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", async (req, res) => {
-  console.log("here");
-});
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Serve static files from the 'dist' directory
+app.use(express.static(join(__dirname, "dist")));
 
 app.get("/api", async (req, res) => {
   res.status(200).send({
