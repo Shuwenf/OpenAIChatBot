@@ -14,6 +14,7 @@ const port = process.env.PORT || 3000;
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -40,10 +41,6 @@ app.post("/api", async (req, res) => {
       model: "text-davinci-003",
       prompt: `${prompt}`,
       max_tokens: 300,
-      temperature: 0,
-      top_p: 1,
-      frequency_penalty: 0.5,
-      presence_penalty: 0,
     });
 
     res.status(200).send({
