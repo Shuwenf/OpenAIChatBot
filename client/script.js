@@ -1,34 +1,34 @@
 import bot from "./assets/bot.svg";
 import user from "./assets/user.svg";
 
-const form = document.querySelector('form');
-const chatContainer = document.querySelector('#chat_container');
-const serverApi = "http://localhost:5000/";
+const form = document.querySelector("form");
+const chatContainer = document.querySelector("#chat_container");
+const serverApi = "/api";
 
 let loadInterval;
 
 /**
  * This will show ... as a loading animation when processing
- * @param {object} element 
+ * @param {object} element
  */
 function loader(element) {
-  element.textContent = '';
+  element.textContent = "";
 
   //every 300ms  it will add '.'
   loadInterval = setInterval(() => {
-    element.textContent += '.';
+    element.textContent += ".";
 
     //resetting textContent
-    if (element.textContent === '....') {
-      element.textContent = '';
+    if (element.textContent === "....") {
+      element.textContent = "";
     }
   }, 300);
 }
 
 /**
  * When Ai has an answer answer will write letter by letter
- * @param {object} elemet 
- * @param {string} text 
+ * @param {object} elemet
+ * @param {string} text
  */
 function typeText(elemet, text) {
   let index = 0;
@@ -52,35 +52,33 @@ function generateUniqueId() {
   const randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
 
-  return `id-${timeStamp}-${hexadecimalString}`
+  return `id-${timeStamp}-${hexadecimalString}`;
 }
 
 /**
  * Generate chat line among bot and user
- * @param {boolean} isAi 
- * @param {string} value 
- * @param {string} uniqueId 
+ * @param {boolean} isAi
+ * @param {string} value
+ * @param {string} uniqueId
  * @returns template string of code
  */
 function chatStripe(isAi, value, uniqueId) {
-  return (
-    `
-      <div class="wrapper ${isAi && 'ai'}">
+  return `
+      <div class="wrapper ${isAi && "ai"}">
         <div class="chat">
           <div class="profile">
             <img src="${isAi ? bot : user}" 
-              alt="${isAi ? 'bot' : 'user'}" />
+              alt="${isAi ? "bot" : "user"}" />
           </div>
           <div class="message" id=${uniqueId}>${value}</div>
         </div>
       </div>
-    `
-  )
+    `;
 }
 
 /**
  * When submit button
- * @param {event} e 
+ * @param {event} e
  */
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -88,7 +86,7 @@ const handleSubmit = async (e) => {
   const data = new FormData(form);
 
   //User's chat stripe
-  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+  chatContainer.innerHTML += chatStripe(false, data.get("prompt"));
   form.reset();
 
   //BotChat stripe
@@ -102,18 +100,18 @@ const handleSubmit = async (e) => {
 
   //Fetch data from server
   const response = await fetch(serverApi, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      prompt: data.get('prompt')
+      prompt: data.get("prompt"),
     }),
-  })
+  });
 
   //Clear interval and add empty string to message div
   clearInterval(loadInterval);
-  messageDiv.innerHTML = '';
+  messageDiv.innerHTML = "";
 
   if (response.ok) {
     const data = await response.json();
@@ -125,14 +123,14 @@ const handleSubmit = async (e) => {
     messageDiv.innerHTML = "Something went wrong!";
     console.log(err);
   }
-}
+};
 
 /**
  * add event listners and callback functions in enterkey pressed
  */
-form.addEventListener('submit', handleSubmit);
-form.addEventListener('keyup', (e) => {
+form.addEventListener("submit", handleSubmit);
+form.addEventListener("keyup", (e) => {
   if (e.keyCode === 13 && !e.shiftKey) {
     handleSubmit(e);
   }
-})
+});
