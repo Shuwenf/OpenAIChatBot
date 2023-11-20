@@ -21,6 +21,7 @@
     "package.json": "^2.0.1"
   },
   "scripts": {
-    "start": "node ./server/server.js"
+    "start": "node ./server/server.js",
+    "build": "react-scripts build"
   }
 }

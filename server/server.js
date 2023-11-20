@@ -8,10 +8,11 @@ import { dirname, join } from "path";
 
 dotenv.config();
 
-const port = 5003;
+const port = 5033;
 
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: "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",
+  // apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
