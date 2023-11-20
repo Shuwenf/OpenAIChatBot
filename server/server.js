@@ -8,11 +8,10 @@ import { dirname, join } from "path";
 
 dotenv.config();
 
-const port = 5033;
+const port = process.env.PORT || 3000;
 
 const configuration = new Configuration({
-  apiKey: "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",
-  // apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
@@ -21,6 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+console.log(process.env.port);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
