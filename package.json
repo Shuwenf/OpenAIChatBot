@@ -4,7 +4,8 @@
   "description": "openai based bot",
   "main": "./server/server.js",
   "devDependencies": {
-    "concurrently": "^7.6.0"
+    "concurrently": "^8.2.2",
+    "openai": "^1.0.0"
   },
   "repository": {
     "type": "git",
