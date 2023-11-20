@@ -18,12 +18,12 @@
   "homepage": "https://github.com/Shuwenf/OpenAIChatBot#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "openai": "^4.19.0",
     "package.json": "^2.0.1",
     "react-scripts": "^5.0.1",
-    "vite": "^5.0.0",
-    "openai": "latest"
+    "vite": "^5.0.0"
   },
   "scripts": {
     "start": "node ./server/server.js"
-    }
+  }
 }

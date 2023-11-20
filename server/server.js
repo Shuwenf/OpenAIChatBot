@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import cors from "cors";
 import OpenAI from "openai";
+
 import { fileURLToPath } from "url";
 
 import { dirname, join } from "path";
@@ -13,7 +14,6 @@ const port = process.env.PORT || 3000;
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -36,11 +36,11 @@ app.post("/api", async (req, res) => {
   try {
     const prompt = req.body.prompt;
 
-    const response = await openai.createCompletion({
+    const response = await openai.completions.create({
       model: "text-davinci-003",
       prompt: `${prompt}`,
+      max_tokens: 300,
       temperature: 0,
-      max_tokens: 3000,
       top_p: 1,
       frequency_penalty: 0.5,
       presence_penalty: 0,
