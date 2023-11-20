@@ -19,7 +19,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-console.log(process.env.port);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -35,16 +34,13 @@ app.get("/api", async (req, res) => {
 
 app.post("/api", async (req, res) => {
   try {
-    const prompt = req.body.prompt;
-
-    const response = await openai.completions.create({
-      model: "gpt-3.5-turbo",
-      prompt: `${prompt}`,
-      max_tokens: 300,
+    const response = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{ role: "user", content: req.body.prompt }],
     });
 
     res.status(200).send({
-      bot: response.choices[0].text,
+      bot: response.choices[0].message.content,
     });
   } catch (error) {
     console.log(error);
